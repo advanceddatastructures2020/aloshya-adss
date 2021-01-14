@@ -5,6 +5,7 @@ struct node
 {
 struct node *prev;
 struct node *next;
+struct node *ptr;
 int data;
 };
 struct node *head;
@@ -68,7 +69,7 @@ void insertion_beginning()
 {
 struct node *ptr;
 int item;
-ptr=(struct node *)malloc(size(struct node));
+ptr=(struct node *)malloc(sizeof(struct node));
 if(ptr==NULL)
 {
 printf("overflow");
@@ -92,7 +93,7 @@ ptr->next=head;
 head->prev=ptr;
 head=ptr;
 }
-prinf("\n Node inserted\n");
+printf("\n Node inserted\n");
 }
 }
 void insertion_last()
@@ -109,7 +110,7 @@ else
 printf("\n Enter value");
 scanf("%d",&item);
 ptr->data=item;
-if(head=NULL)
+if(head==NULL)
 {
 ptr->next=NULL;
 ptr->prev=NULL;
@@ -160,6 +161,127 @@ ptr->prev=temp;
 temp->next=ptr;
 temp->next->prev=ptr;
 printf("\n node inserted\n");
+}
+}
+void deletion_beginning()
+{
+struct node *ptr;
+if(head==NULL)
+{
+printf("\n Underflow");
+}
+else if(head->next==NULL)
+{
+head=NULL;
+free(head);
+printf("\n node deleted\n");
+}
+else
+{
+ptr=head;
+head=head->next;
+head->prev=NULL;
+free(ptr);
+printf("\n node deleted\n");
+}
+}
+void deletion_last()
+{
+struct node *ptr;
+if(head==NULL)
+{
+printf("\n undrflow");
+}
+else if(head->next == NULL)
+{
+head=NULL;
+free(head);
+printf("\n node deleted");
+}
+else
+{
+ptr=head;
+if(ptr->next!=NULL)
+{
+ptr=ptr->next;
+}
+ptr->prev->next=NULL;
+free(ptr);
+printf("\n node deleted\n");
+}
+}
+
+void deletion_specified()
+{
+struct node *ptr,*temp;
+int val;
+printf("\n enter the data after which the node is to be deleted : ");
+scanf("%d",&val);
+ptr=head;
+while(ptr->data !=val)
+ptr=ptr->next;
+if(ptr->next==NULL)
+{
+printf("\n can't delete\n");
+}
+else if(ptr->next->next==NULL)
+{
+ptr->next=NULL;
+}
+else
+{
+temp=ptr->next;
+ptr->next=temp->next;
+temp->next->prev->ptr;
+free(temp);
+printf("\n node deleted");
+}
+}
+
+void display()
+{
+struct node *ptr;
+printf("\n printing values...\n");
+ptr=head;
+while(ptr != NULL)
+{
+printf("%d\n",ptr->data);
+ptr=ptr->next;
+}
+}
+
+void search()
+{
+struct node *ptr;
+int item,i=0,flag;
+ptr=head;
+if(ptr==NULL)
+{
+printf("\n Empty list \n");
+}
+else
+{
+printf("\n Enter item which you want to search ?\n");
+scanf("%d",&item);
+while(ptr!=NULL)
+{
+if(ptr->data==item)
+{
+printf("\n item found at location %d",i+1);
+flag=0;
+break;
+}
+else
+{
+flag=1;
+}
+i++;
+ptr=ptr->next;
+}
+if(flag==1)
+{
+printf("\n item not found\n");
+}
 }
 }
 
